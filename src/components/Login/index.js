@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import {GoogleLogin} from "react-google-login"
 
 async function doLogin({ email, encryptedPassword }) {
-  // Gunakan endpoint-mu sendiri
   const response = await fetch("http://localhost:3000/login", {
     method: "POST",
     headers: {

@@ -1,27 +1,14 @@
-// import { useNavigate } from "react-router-dom";
+// import { useState } from "react";
+import './App.css'
+import Login from './components/Login'
 
-// import Login from './components/LandingPage/login'
-// import NavBar from './components/Navbar/index'
-// import About from './components/About/index'
-// import FileProcessing from './components/LandingPage/fileProcessing';
+function App() {
+    return (
+        <div>
+            <h2 className='App'>Aplikasi List Car</h2>
+            <Login />
+        </div>
+    )
+}
 
-// function App() {
-//     const navigate = useNavigate();
-
-//     function handleLogout() {
-//         localStorage.removeItem("token");
-//         navigate("/");
-//     }
-
-//     return (
-//         <>
-//         <Login />
-//         <NavBar />
-//         <About />
-//         <FileProcessing/>
-//         </>
-//     );
-// }
-
-// export default App;
-
+export default App
