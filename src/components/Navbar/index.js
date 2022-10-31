@@ -1,25 +1,45 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
-
+import { NavLink, useNavigate } from "react-router-dom";
+import {React} from "react";
 
 function NavBar() {
+  const navigate = useNavigate();
+  
+  function handleLogout(e) {
+    e.preventDefault();
+    localStorage.removeItem("token");
+    navigate('/')
+  }
+
   return (
-    <nav className="navbar navbar-expand-lg bg-light">
+    <nav className="navbar navbar-expand-lg navbar-light">
       <div className="container-fluid">
-        <NavLink className="navbar-brand" to="#">React</NavLink>
-        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="_blank/navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <NavLink className="navbar-brand" to="#">Navbar</NavLink>
+        <li className="navbar-toggler" type="li" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
-        </button>
-        <div className="collapse navbar-collapse justify-content-center" id="navbarNav">
-            <ul className="navbar-nav">
-              <li className="nav-item">
-                 <NavLink className="nav-link" to="/About">About</NavLink>
-              </li>
-              <li className="nav-item">
-                  <NavLink className="nav-link" to="/FileProcessing">File</NavLink>
-              </li>
-            </ul>
+        </li>
+        <div className="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul className="navbar-nav">
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/about">About</NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/blog">Blog</NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/fileprocessing">File</NavLink>
+            </li>
+          </ul>
         </div>
+        <ul className="d-flex list-unstyled">
+            <li className="nav-item dropdown">
+              <NavLink className="nav-link dropdown-toggle" to="#" role="li" data-bs-toggle="dropdown">
+                Dropdown
+              </NavLink>
+              <ul className="dropdown-menu">
+                <li><NavLink className="dropdown-item" type="submit" value="Logout" onClick={handleLogout}>Log out</NavLink></li>
+              </ul>
+            </li>
+        </ul>
       </div>
     </nav>
   )

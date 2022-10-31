@@ -20,6 +20,9 @@ function FileProcessing() {
     return(
         <div className="App">
             <header className="App-header">
+              <p>
+                    Halaman Fileprocessing
+              </p>
               <img src={imageFile} className="App-logo" alt="logo" />
               <input
                 ref={fileRef}
