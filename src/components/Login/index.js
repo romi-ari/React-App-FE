@@ -1,5 +1,6 @@
 import {useState, React} from "react";
 import { useNavigate } from "react-router-dom";
+import {GoogleLogin} from "react-google-login"
 
 async function doLogin({ email, encryptedPassword }) {
   // Gunakan endpoint-mu sendiri
@@ -17,10 +18,27 @@ async function doLogin({ email, encryptedPassword }) {
   return data.token;
 }
 
+async function doLoginWithGoogle(token) {
+  // Sesuaikan endpoint
+  const response = await fetch("http://localhost:3000/api/v1/auth/google", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      token
+    }),
+  });
+  const data = await response.json();
+  console.log(data.token)
+  return data.token;
+}
+
 function Login() {
   const [email, setEmail] = useState("");
   const [encryptedPassword, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useState("");
 
   function handleSubmit(e) {
     setIsLoading(true);
@@ -36,6 +54,25 @@ function Login() {
   function dashboard (e) {
     e.preventDefault()
     navigate('/dashboard')
+  }
+  
+  const haldleSuccessGoogle = (response) => {
+    console.log(response);
+    console.log(response.tokenId);
+    if(response.tokenId) {
+      doLoginWithGoogle(response.tokenId)
+        .then((token) => {
+            localStorage.setItem("token", token);
+            setIsLoggedIn(token);
+          })
+        .catch((err) => console.log(err.message))
+        .finally(() => setIsLoading(false));      
+    }
+  }
+
+  const haldleFailureGoogle = (response) => {
+    console.log(response);
+    alert(response);
   }
 
   return(
@@ -61,6 +98,13 @@ function Login() {
                          <button className="btn btn-outline-light btn-lg px-5" type="submit" value={isLoading ? "Loading" : "Login"} >Submit</button>
                          <button className="btn btn-outline-light btn-lg px-5" type="button" onClick={dashboard} >Login</button>
                     </form>
+                    <GoogleLogin
+                      clientId={process.env.GOOGLE_CLIENT_ID}
+                      buttonText="Login with Google"
+                      onSuccess={haldleSuccessGoogle}
+                      onFailure={haldleFailureGoogle}
+                      cookiePolicy={'single_host_origin'}
+                    />
                   </div>
                 </div>
               </div>
