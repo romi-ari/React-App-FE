@@ -2,11 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import Protected from "./Protected";
 import {BrowserRouter, Routes, Route,} from 'react-router-dom'
+
 import {createStore, compose, applyMiddleware} from 'redux';
 import {Provider} from 'react-redux'
 import thunk from 'redux-thunk'
-
 import reducers from './reducers';
+
 import App from './App';
 import {About, Blog, FileProcessing, NavBar,} from './components'
 

@@ -1,6 +1,6 @@
 import {combineReducers} from 'redux'
-import carsReducer from './cars'
+import CarsReducer from './cars'
 
 export default combineReducers({
-    carsReducer
+    CarsReducer
 })
